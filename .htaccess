@@ -1,0 +1,13 @@
+# ==============================================================================
+# CONFIGURACIÓN DEL SERVIDOR WEB APACHE / CPANEL
+# Funeraria Perpetuo Socorro
+# ==============================================================================
+
+# Página personalizada de error 404
+ErrorDocument 404 /404.html
+
+# Prevenir navegación de directorios
+Options -Indexes
+
+# Codificación por defecto
+AddDefaultCharset UTF-8
