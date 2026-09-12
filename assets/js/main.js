@@ -405,6 +405,148 @@
 		}
 	}
 
+	// =============================================================
+	// MINI-CARRUSELES DE ATAÚDES / PRODUCTOS (detalles.html)
+	// =============================================================
+	$('.casket-carousel').each(function() {
+		var $carousel = $(this);
+		var $track = $carousel.find('.casket-carousel-track');
+		var $slides = $carousel.find('.casket-carousel-slide');
+		var totalSlides = $slides.length;
+		if (totalSlides <= 1) return;
+
+		var currentIndex = 0;
+		var $dots = $carousel.find('.casket-dot');
+		var $badgeNum = $carousel.find('.slide-num');
+
+		function goToSlide(index) {
+			if (index < 0) {
+				currentIndex = totalSlides - 1;
+			} else if (index >= totalSlides) {
+				currentIndex = 0;
+			} else {
+				currentIndex = index;
+			}
+
+			// Desplazamiento por porcentaje relativo (ideal para tabs ocultos y responsividad)
+			var offsetPercent = -1 * currentIndex * 100;
+			$track.css('transform', 'translate3d(' + offsetPercent + '%, 0, 0)');
+
+			// Actualizar dot activo con animación de píldora
+			$dots.removeClass('active')
+				.filter('[data-index="' + currentIndex + '"]').addClass('active');
+
+			// Actualizar número en el badge contador
+			if ($badgeNum.length) {
+				$badgeNum.text(currentIndex + 1);
+			}
+		}
+
+		// =============================================================
+		// Avance automático cada 7 segundos (7000ms)
+		// =============================================================
+		var autoPlayInterval = 7000;
+		var autoPlayTimer = null;
+
+		function startAutoPlay() {
+			stopAutoPlay();
+			autoPlayTimer = setInterval(function() {
+				// Solo avanzar si la pestaña que contiene el carrusel está visible
+				if ($carousel.is(':visible')) {
+					goToSlide(currentIndex + 1);
+				}
+			}, autoPlayInterval);
+		}
+
+		function stopAutoPlay() {
+			if (autoPlayTimer) {
+				clearInterval(autoPlayTimer);
+				autoPlayTimer = null;
+			}
+		}
+
+		function resetAutoPlay() {
+			startAutoPlay();
+		}
+
+		// Iniciar reproducción automática
+		startAutoPlay();
+
+		// Pausar avance al colocar el cursor encima y reanudar al salir
+		$carousel.on('mouseenter', function() {
+			stopAutoPlay();
+		}).on('mouseleave', function() {
+			startAutoPlay();
+		});
+
+		// Botón Siguiente
+		$carousel.find('.casket-carousel-btn.next').on('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			goToSlide(currentIndex + 1);
+			resetAutoPlay();
+		});
+
+		// Botón Anterior
+		$carousel.find('.casket-carousel-btn.prev').on('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			goToSlide(currentIndex - 1);
+			resetAutoPlay();
+		});
+
+		// Clic en Indicadores (Dots)
+		$carousel.on('click', '.casket-dot', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			var idx = parseInt($(this).attr('data-index'), 10);
+			goToSlide(idx);
+			resetAutoPlay();
+		});
+
+		// Reiniciar cuenta regresiva de 7 segundos al cambiar de pestaña
+		$('.tab-nav-btn').on('click', function() {
+			setTimeout(function() {
+				if ($carousel.is(':visible')) {
+					resetAutoPlay();
+				}
+			}, 50);
+		});
+
+		// Soporte de Desplazamiento Táctil (Touch Swipe) en Móviles
+		var touchStartX = 0;
+		var touchCurrentX = 0;
+		var isSwiping = false;
+
+		$carousel.on('touchstart', function(e) {
+			if (e.originalEvent.touches && e.originalEvent.touches.length === 1) {
+				touchStartX = e.originalEvent.touches[0].clientX;
+				touchCurrentX = touchStartX;
+				isSwiping = true;
+				stopAutoPlay();
+			}
+		});
+
+		$carousel.on('touchmove', function(e) {
+			if (!isSwiping) return;
+			touchCurrentX = e.originalEvent.touches[0].clientX;
+		});
+
+		$carousel.on('touchend', function(e) {
+			if (!isSwiping) return;
+			isSwiping = false;
+			var diffX = touchCurrentX - touchStartX;
+			if (Math.abs(diffX) > 35) {
+				if (diffX < 0) {
+					goToSlide(currentIndex + 1);
+				} else {
+					goToSlide(currentIndex - 1);
+				}
+			}
+			resetAutoPlay();
+		});
+	});
+
 	// Año actual dinámico en el footer
 	var currentYear = new Date().getFullYear();
 	$('#current-year, .current-year').text(currentYear);

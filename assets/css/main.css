@@ -1847,6 +1847,235 @@ body.homepage.is-preload #header:after {
 	display: block;
 }
 
+/* ============================================================= */
+/* MINI CARRUSEL DE ATAÚDES / PRODUCTOS EN DETALLES.HTML        */
+/* Inspirado en la elegancia del carrusel de instalaciones       */
+/* ============================================================= */
+.casket-carousel {
+	position: relative;
+	width: 100%;
+	height: 220px;
+	overflow: hidden;
+	background: var(--color-canvas-deep);
+	border-top-left-radius: var(--radius-lg);
+	border-top-right-radius: var(--radius-lg);
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+.casket-carousel-track {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+	will-change: transform;
+}
+
+.casket-carousel-slide {
+	flex: 0 0 100%;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+	background: radial-gradient(circle at center, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0.35) 100%), var(--color-canvas-deep);
+}
+
+.casket-carousel-slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	display: block;
+	transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+	pointer-events: none;
+}
+
+.casket-carousel:hover .casket-carousel-slide img {
+	transform: scale(1.03);
+}
+
+/* Degradado inferior para resaltar controles */
+.casket-carousel::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 65px;
+	background: linear-gradient(to top, rgba(12, 12, 15, 0.78) 0%, rgba(12, 12, 15, 0.22) 60%, transparent 100%);
+	pointer-events: none;
+	z-index: 5;
+}
+
+/* Botones de navegación circulares con glassmorphism */
+.casket-carousel-btn {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 34px;
+	height: 34px;
+	cursor: pointer;
+	z-index: 10;
+	border-radius: 50%;
+	background: rgba(24, 24, 24, 0.85);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border: 1px solid var(--color-hairline-strong);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--color-ink);
+	font-size: 12px;
+	transition: var(--transition-smooth);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+	outline: none;
+	padding: 0;
+	opacity: 0.85;
+}
+
+.casket-carousel:hover .casket-carousel-btn {
+	opacity: 1;
+}
+
+.casket-carousel-btn:hover {
+	background: var(--color-primary);
+	border-color: var(--color-primary);
+	color: #ffffff;
+	transform: translateY(-50%) scale(1.1);
+	box-shadow: 0 4px 14px rgba(107, 43, 142, 0.5);
+}
+
+.casket-carousel-btn:active {
+	transform: translateY(-50%) scale(0.95);
+}
+
+.casket-carousel-btn.prev {
+	left: 10px;
+}
+
+.casket-carousel-btn.next {
+	right: 10px;
+}
+
+/* Indicadores de diapositiva (Dots interactivos con expansión a cápsula) */
+.casket-carousel-dots {
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 6px;
+	z-index: 10;
+}
+
+.casket-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.38);
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+	outline: none;
+}
+
+.casket-dot:hover {
+	background: rgba(255, 255, 255, 0.75);
+}
+
+.casket-dot.active {
+	background: var(--color-primary-light);
+	box-shadow: 0 0 10px rgba(123, 71, 187, 0.7);
+	width: 22px;
+	border-radius: 10px;
+}
+
+/* Badge contador de fotos */
+.casket-carousel-badge {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 10;
+	background: rgba(18, 18, 22, 0.82);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	color: rgba(255, 255, 255, 0.9);
+	font-size: 11px;
+	font-weight: 600;
+	padding: 3px 9px;
+	border-radius: 999px;
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	pointer-events: none;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.casket-carousel-badge i {
+	font-size: 10px;
+	color: var(--color-primary-light);
+}
+
+/* Acentos exclusivos para Paquete VIP */
+.casket-carousel.vip-carousel .casket-carousel-btn:hover {
+	background: var(--color-accent-amber);
+	border-color: var(--color-accent-amber);
+	color: #000000;
+	box-shadow: 0 4px 14px rgba(245, 158, 11, 0.5);
+}
+
+.casket-carousel.vip-carousel .casket-dot.active {
+	background: var(--color-accent-amber);
+	box-shadow: 0 0 10px rgba(245, 158, 11, 0.7);
+}
+
+.casket-carousel.vip-carousel .casket-carousel-badge i {
+	color: var(--color-accent-amber);
+}
+
+/* Soporte para Tema Claro (data-theme="light") */
+[data-theme="light"] .casket-carousel {
+	background: #f1f3f5;
+}
+
+[data-theme="light"] .casket-carousel-slide {
+	background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(220, 224, 230, 0.6) 100%), #f8f9fa;
+}
+
+[data-theme="light"] .casket-carousel::after {
+	background: linear-gradient(to top, rgba(20, 20, 25, 0.55) 0%, rgba(20, 20, 25, 0.15) 60%, transparent 100%);
+}
+
+[data-theme="light"] .casket-carousel-btn {
+	background: rgba(255, 255, 255, 0.9);
+	border-color: rgba(0, 0, 0, 0.12);
+	color: var(--color-ink);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .casket-carousel-btn:hover {
+	background: var(--color-primary);
+	border-color: var(--color-primary);
+	color: #ffffff;
+}
+
+[data-theme="light"] .casket-carousel.vip-carousel .casket-carousel-btn:hover {
+	background: var(--color-accent-amber);
+	border-color: var(--color-accent-amber);
+	color: #000000;
+}
+
+[data-theme="light"] .casket-carousel-badge {
+	background: rgba(255, 255, 255, 0.9);
+	border-color: rgba(0, 0, 0, 0.1);
+	color: var(--color-ink);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
 .package-detail-meta {
 	padding: 24px;
 	display: flex;
