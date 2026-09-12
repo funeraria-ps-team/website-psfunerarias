@@ -1,0 +1,7 @@
+# ==============================================================================
+# CLOUDFLARE PAGES / NETLIFY ROUTING & CUSTOM 404
+# Funeraria Perpetuo Socorro
+# ==============================================================================
+
+# Redirige cualquier ruta no encontrada al 404 personalizado manteniendo el status 404
+/*    /404.html    404
