@@ -25,11 +25,15 @@
     '.team-role-card',
     '.guarantee-card',
     '.nosotros-cta-box',
-    '.contact-card'
+    '.contact-card',
+    '.carousel article'
   ].join(', ');
 
+  const initializedCards = new WeakSet();
+
   function setupCard(card) {
-    if (card.dataset.borderGlowInit === 'true') return;
+    if (initializedCards.has(card)) return;
+    initializedCards.add(card);
     card.dataset.borderGlowInit = 'true';
 
     // Agregar clase de activación

@@ -1011,11 +1011,6 @@ body.homepage.is-preload #header:after {
 	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
-.package-card.featured {
-	border: 2px solid var(--color-primary);
-	box-shadow: 0 0 25px rgba(123, 71, 187, 0.25);
-}
-
 .package-badge {
 	position: absolute !important;
 	top: 12px;
@@ -1193,6 +1188,7 @@ body.homepage.is-preload #header:after {
 }
 
 .carousel article {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	flex: 0 0 340px;
@@ -1210,7 +1206,7 @@ body.homepage.is-preload #header:after {
 	opacity: 1.0;
 	box-sizing: border-box;
 	overflow: hidden;
-	transition: opacity 0.6s ease-in-out, transform 0.25s ease, border-color 0.25s ease;
+	transition: opacity 0.6s ease-in-out, transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 	user-select: none;
 }
 
@@ -1221,6 +1217,7 @@ body.homepage.is-preload #header:after {
 .carousel article:hover {
 	transform: translateY(-4px);
 	border-color: var(--color-hairline-strong);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
 .carousel article .image.featured {
