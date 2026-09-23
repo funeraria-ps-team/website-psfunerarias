@@ -1,0 +1,11 @@
+{
+	"name": "psfunerarias",
+	"compatibility_date": "2026-09-21",
+	"observability": {
+		"enabled": true
+	},
+	"assets": {
+		"directory": ".",
+		"not_found_handling": "404-page"
+	}
+}
