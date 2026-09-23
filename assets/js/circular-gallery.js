@@ -4,7 +4,7 @@
  * Sin frameworks (React/Vue/etc.)
  */
 
-import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from './ogl.mjs';
+import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from './ogl.js';
 
 function debounce(func, wait) {
   let timeout;

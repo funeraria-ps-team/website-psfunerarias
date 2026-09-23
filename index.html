@@ -1306,7 +1306,7 @@
 	<script type="module">
 		import { initCircularGallery } from './assets/js/circular-gallery.js';
 
-		document.addEventListener('DOMContentLoaded', () => {
+		function initVehicleGallery() {
 			const container = document.getElementById('circular-gallery-container');
 			if (!container) return;
 
@@ -1344,7 +1344,13 @@
 					gallery.next();
 				});
 			}
-		});
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initVehicleGallery);
+		} else {
+			initVehicleGallery();
+		}
 	</script>
 
 	<!-- GSAP Animation Platform para Masonry -->
@@ -1354,7 +1360,7 @@
 	<script type="module">
 		import { initMasonryGallery } from './assets/js/masonry-gallery.js';
 
-		document.addEventListener('DOMContentLoaded', () => {
+		function initMasonry() {
 			const container = document.getElementById('masonry-gallery-container');
 			if (!container) return;
 
@@ -1444,7 +1450,13 @@
 				blurToFocus: true,
 				colorShiftOnHover: false
 			});
-		});
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initMasonry);
+		} else {
+			initMasonry();
+		}
 	</script>
 
 </body>
